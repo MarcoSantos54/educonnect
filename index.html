@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduConnect</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Login Screen -->
+        <div id="login" class="screen active">
+            <div class="container-center">
+                <h1 class="logo">EduConnect</h1>
+                <p class="welcome">Bem-vindo ao EduConnect!</p>
+                <input type="email" id="email" placeholder="E-mail" class="input">
+                <input type="password" id="password" placeholder="Senha" class="input">
+                <button id="forgot" class="forgot">Esqueceu a senha?</button>
+                <button id="loginBtn" class="button">Entrar</button>
+            </div>
+        </div>
+
+        <!-- Main App (Tabs) -->
+        <div id="main" class="screen">
+            <nav class="tabs">
+                <button class="tab active" data-tab="home">Início</button>
+                <button class="tab" data-tab="activities">Atividades</button>
+                <button class="tab" data-tab="chats">Conversas</button>
+                <button class="tab" data-tab="pending">Pendentes</button>
+                <button class="tab" data-tab="mental-health">Saúde Mental</button>
+                <button class="tab" data-tab="minigames">Minijogos</button>
+                <button class="tab" data-tab="gallery">Galeria</button>
+                <button class="tab" data-tab="history">Histórico</button>
+                <button class="tab" data-tab="settings">Configurações</button>
+            </nav>
+            <div class="content">
+                <!-- Home -->
+                <div id="home" class="tab-content active">
+                    <div class="top-bar">
+                        <h2 class="logo-small">EduConnect</h2>
+                        <img src="https://placehold.co/40x40" alt="Avatar" class="avatar">
+                    </div>
+                    <div class="summary-card">
+                        <h3>Atividades Pendentes</h3>
+                        <p id="pending-count" class="summary-number">0</p>
+                        <button class="link-button" onclick="showTab('activities')">Ver minhas atividades</button>
+                    </div>
+                    <div class="messages">
+                        <h3>Últimas mensagens</h3>
+                        <div id="last-messages"></div>
+                    </div>
+                </div>
+
+                <!-- Activities -->
+                <div id="activities" class="tab-content">
+                    <div class="filters">
+                        <button class="filter active" data-filter="all">📅 Todas</button>
+                        <button class="filter" data-filter="pending">⏳ Pendentes</button>
+                        <button class="filter" data-filter="completed">✅ Concluídas</button>
+                    </div>
+                    <div id="activities-list" class="list"></div>
+                </div>
+
+                <!-- Chats -->
+                <div id="chats" class="tab-content">
+                    <div id="chat-list" class="list"></div>
+                </div>
+
+                <!-- Pending -->
+                <div id="pending" class="tab-content">
+                    <div id="pending-list" class="list"></div>
+                </div>
+
+                <!-- Mental Health -->
+                <div id="mental-health" class="tab-content">
+                    <h3>Saúde Mental</h3>
+                    <p>Como você está se sentindo hoje?</p>
+                    <div class="mood-row">
+                        <button class="mood-button" data-mood="Feliz">😊 Feliz</button>
+                        <button class="mood-button" data-mood="Triste">😢 Triste</button>
+                        <button class="mood-button" data-mood="Ansioso">😰 Ansioso</button>
+                    </div>
+                    <h4>Diário de Gratidão</h4>
+                    <textarea id="journal" placeholder="Escreva aqui..." class="journal-input"></textarea>
+                    <button class="button" onclick="saveJournal()">Salvar Diário</button>
+                    <h4>Dicas de Bem-Estar</h4>
+                    <div id="tips-list"></div>
+                </div>
+
+                <!-- Minigames -->
+                <div id="minigames" class="tab-content">
+                    <h3>Minijogo de Sequência</h3>
+                    <p id="level">Nível: 1</p>
+                    <p id="sequence-display">Sequência: 1 - 2 - 3 - 4</p>
+                    <div class="game-grid">
+                        <button class="game-button" style="background-color: #ff6b6b;" onclick="handlePress(1)">1</button>
+                        <button class="game-button" style="background-color: #4ecdc4;" onclick="handlePress(2)">2</button>
+                        <button class="game-button" style="background-color: #45b7d1;" onclick="handlePress(3)">3</button>
+                        <button class="game-button" style="background-color: #f9ca24;" onclick="handlePress(4)">4</button>
+                    </div>
+                    <p id="user-sequence">Sua sequência: </p>
+                </div>
+
+                <!-- Gallery -->
+                <div id="gallery" class="tab-content">
+                    <div id="gallery-grid" class="gallery"></div>
+                </div>
+
+                <!-- History -->
+                <div id="history" class="tab-content">
+                    <div id="history-list" class="list"></div>
+                </div>
+
+                <!-- Settings -->
+                <div id="settings" class="tab-content">
+                    <h3>Perfil do aluno</h3>
+                    <p>Nome: Aluno Exemplo</p>
+                    <p>E-mail: aluno@escola.com</p>
+                    <p>Turma: 9ºA (exemplo)</p>
+                    <h4>Aparência</h4>
+                    <p>Modo Escuro (opcional)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals for Details -->
+        <div id="activity-modal" class="modal">
+            <div class="modal-content">
+                <h3 id="activity-title"></h3>
+                <p id="activity-details"></p>
+                <button class="button" onclick="markDone()">Marcar como concluída</button>
+                <button onclick="closeModal()">Fechar</button>
+            </div>
+        </div>
+
+        <div id="chat-modal" class="modal">
+            <div class="modal-content">
+                <h3 id="chat-teacher"></h3>
+                <div id="chat-messages" class="chat-messages"></div>
+                <div class="chat-input-row">
+                    <input type="text" id="chat-input" placeholder="Escreva uma mensagem" class="chat-input">
+                    <button class="send-button" onclick="sendMessage()">Enviar</button>
+                </div>
+                <button onclick="closeModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
