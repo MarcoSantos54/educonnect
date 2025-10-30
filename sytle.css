@@ -1,0 +1,175 @@
+/* ====== EDUCONNECT STYLE ====== */
+:root {
+  --primary: #1e6fb3;
+  --primary-light: #e6f2ff;
+  --danger: #d13434;
+  --bg: #f9fafc;
+  --text: #333;
+  --radius: 10px;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  color: #fff;
+  padding: 16px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.logo {
+  width: 40px;
+  margin-right: 10px;
+}
+
+/* Screens */
+.screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 70px);
+}
+.hidden {
+  display: none;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Login card */
+.card {
+  background: #fff;
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+.subtitle {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* Inputs & Buttons */
+.input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: var(--radius);
+  font-size: 16px;
+}
+
+.button {
+  display: inline-block;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: var(--radius);
+  background: #ddd;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+.button:hover {
+  opacity: 0.9;
+}
+
+.button.primary {
+  background: var(--primary);
+  color: #fff;
+}
+.button.secondary {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+.button.danger {
+  background: var(--danger);
+  color: #fff;
+}
+.button.small {
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
+/* Home summary */
+.summary {
+  background: var(--primary-light);
+  padding: 16px;
+  border-radius: var(--radius);
+  text-align: center;
+  margin: 20px 0;
+}
+.summary-number {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--primary);
+}
+
+/* Activity cards */
+.activity {
+  background: #fff;
+  padding: 16px;
+  margin-bottom: 12px;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.activity h4 {
+  margin: 0;
+  color: var(--primary);
+}
+.activity p {
+  margin: 4px 0;
+  color: #555;
+}
+
+/* Chat */
+.chat-box {
+  background: #fff;
+  padding: 10px;
+  height: 300px;
+  overflow-y: auto;
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+.chat-message {
+  padding: 10px;
+  border-radius: var(--radius);
+  margin: 6px 0;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+.chat-left {
+  background: #f1f1f1;
+  text-align: left;
+}
+.chat-right {
+  background: var(--primary);
+  color: #fff;
+  text-align: right;
+  margin-left: auto;
+}
+.chat-input-row {
+  display: flex;
+  margin-top: 10px;
+  gap: 10px;
+}
+.chat-input-row input {
+  flex: 1;
+  padding: 10px;
+  border-radius: var(--radius);
+  border: 1px solid #ddd;
+}
