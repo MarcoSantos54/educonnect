@@ -74,3 +74,4 @@ function sendMessage() {
   input.value = "";
   showChat();
 }
+
