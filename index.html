@@ -5,48 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduConnect</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome para ícones (opcional, mas recomendado para beleza) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div id="app">
         <!-- Login Screen -->
         <div id="login" class="screen active">
             <div class="container-center">
-                <h1 class="logo">EduConnect</h1>
-                <p class="welcome">Bem-vindo ao EduConnect!</p>
-                <input type="email" id="email" placeholder="E-mail" class="input">
-                <input type="password" id="password" placeholder="Senha" class="input">
-                <button id="forgot" class="forgot">Esqueceu a senha?</button>
-                <button id="loginBtn" class="button">Entrar</button>
+                <h1 class="logo"><i class="fas fa-graduation-cap"></i> EduConnect</h1>
+                <p class="welcome">Bem-vindo ao EduConnect! Faça login para continuar.</p>
+                <form class="login-form">
+                    <input type="email" id="email" placeholder="E-mail" class="input" required aria-label="E-mail">
+                    <input type="password" id="password" placeholder="Senha" class="input" required aria-label="Senha">
+                    <button type="button" id="forgot" class="forgot">Esqueceu a senha?</button>
+                    <button type="button" id="loginBtn" class="button primary">Entrar</button>
+                </form>
             </div>
-        </div> 
+        </div>
 
         <!-- Main App (Tabs) -->
         <div id="main" class="screen">
             <nav class="tabs">
-                <button class="tab active" data-tab="home">Início</button>
-                <button class="tab" data-tab="activities">Atividades</button>
-                <button class="tab" data-tab="chats">Conversas</button>
-                <button class="tab" data-tab="pending">Pendentes</button>
-                <button class="tab" data-tab="mental-health">Saúde Mental</button>
-                <button class="tab" data-tab="minigames">Minijogos</button>
-                <button class="tab" data-tab="gallery">Galeria</button>
-                <button class="tab" data-tab="history">Histórico</button>
-                <button class="tab" data-tab="settings">Configurações</button>
+                <button class="tab active" data-tab="home" aria-label="Início"><i class="fas fa-home"></i> Início</button>
+                <button class="tab" data-tab="activities" aria-label="Atividades"><i class="fas fa-tasks"></i> Atividades</button>
+                <button class="tab" data-tab="chats" aria-label="Conversas"><i class="fas fa-comments"></i> Conversas</button>
+                <button class="tab" data-tab="pending" aria-label="Pendentes"><i class="fas fa-clock"></i> Pendentes</button>
+                <button class="tab" data-tab="mental-health" aria-label="Saúde Mental"><i class="fas fa-heart"></i> Saúde Mental</button>
+                <button class="tab" data-tab="minigames" aria-label="Minijogos"><i class="fas fa-gamepad"></i> Minijogos</button>
+                <button class="tab" data-tab="gallery" aria-label="Galeria"><i class="fas fa-images"></i> Galeria</button>
+                <button class="tab" data-tab="history" aria-label="Histórico"><i class="fas fa-history"></i> Histórico</button>
+                <button class="tab" data-tab="settings" aria-label="Configurações"><i class="fas fa-cog"></i> Configurações</button>
+                <button id="logout" class="logout" aria-label="Sair"><i class="fas fa-sign-out-alt"></i></button>
             </nav>
             <div class="content">
                 <!-- Home -->
                 <div id="home" class="tab-content active">
                     <div class="top-bar">
-                        <h2 class="logo-small">EduConnect</h2>
-                        <img src="https://placehold.co/40x40" alt="Avatar" class="avatar">
+                        <h2 class="logo-small"><i class="fas fa-graduation-cap"></i> EduConnect</h2>
+                        <img src="https://placehold.co/40x40" alt="Avatar do usuário" class="avatar">
                     </div>
                     <div class="summary-card">
-                        <h3>Atividades Pendentes</h3>
+                        <h3><i class="fas fa-list-check"></i> Atividades Pendentes</h3>
                         <p id="pending-count" class="summary-number">0</p>
                         <button class="link-button" onclick="showTab('activities')">Ver minhas atividades</button>
                     </div>
                     <div class="messages">
-                        <h3>Últimas mensagens</h3>
+                        <h3><i class="fas fa-envelope"></i> Últimas mensagens</h3>
                         <div id="last-messages"></div>
                     </div>
                 </div>
@@ -54,9 +59,9 @@
                 <!-- Activities -->
                 <div id="activities" class="tab-content">
                     <div class="filters">
-                        <button class="filter active" data-filter="all">📅 Todas</button>
-                        <button class="filter" data-filter="pending">⏳ Pendentes</button>
-                        <button class="filter" data-filter="completed">✅ Concluídas</button>
+                        <button class="filter active" data-filter="all"><i class="fas fa-calendar"></i> Todas</button>
+                        <button class="filter" data-filter="pending"><i class="fas fa-hourglass-half"></i> Pendentes</button>
+                        <button class="filter" data-filter="completed"><i class="fas fa-check-circle"></i> Concluídas</button>
                     </div>
                     <div id="activities-list" class="list"></div>
                 </div>
@@ -73,32 +78,33 @@
 
                 <!-- Mental Health -->
                 <div id="mental-health" class="tab-content">
-                    <h3>Saúde Mental</h3>
+                    <h3><i class="fas fa-heartbeat"></i> Saúde Mental</h3>
                     <p>Como você está se sentindo hoje?</p>
                     <div class="mood-row">
-                        <button class="mood-button" data-mood="Feliz">😊 Feliz</button>
-                        <button class="mood-button" data-mood="Triste">😢 Triste</button>
-                        <button class="mood-button" data-mood="Ansioso">😰 Ansioso</button>
+                        <button class="mood-button" data-mood="Feliz"><i class="fas fa-smile"></i> Feliz</button>
+                        <button class="mood-button" data-mood="Triste"><i class="fas fa-sad-tear"></i> Triste</button>
+                        <button class="mood-button" data-mood="Ansioso"><i class="fas fa-frown"></i> Ansioso</button>
                     </div>
-                    <h4>Diário de Gratidão</h4>
-                    <textarea id="journal" placeholder="Escreva aqui..." class="journal-input"></textarea>
-                    <button class="button" onclick="saveJournal()">Salvar Diário</button>
-                    <h4>Dicas de Bem-Estar</h4>
+                    <h4><i class="fas fa-book"></i> Diário de Gratidão</h4>
+                    <textarea id="journal" placeholder="Escreva aqui..." class="journal-input" aria-label="Diário de Gratidão"></textarea>
+                    <button class="button primary" onclick="saveJournal()">Salvar Diário</button>
+                    <h4><i class="fas fa-lightbulb"></i> Dicas de Bem-Estar</h4>
                     <div id="tips-list"></div>
                 </div>
 
                 <!-- Minigames -->
                 <div id="minigames" class="tab-content">
-                    <h3>Minijogo de Sequência</h3>
+                    <h3><i class="fas fa-gamepad"></i> Minijogo de Sequência</h3>
                     <p id="level">Nível: 1</p>
                     <p id="sequence-display">Sequência: 1 - 2 - 3 - 4</p>
                     <div class="game-grid">
-                        <button class="game-button" style="background-color: #ff6b6b;" onclick="handlePress(1)">1</button>
-                        <button class="game-button" style="background-color: #4ecdc4;" onclick="handlePress(2)">2</button>
-                        <button class="game-button" style="background-color: #45b7d1;" onclick="handlePress(3)">3</button>
-                        <button class="game-button" style="background-color: #f9ca24;" onclick="handlePress(4)">4</button>
+                        <button class="game-button" style="background: linear-gradient(45deg, #ff6b6b, #ff8e8e);" onclick="handlePress(1)">1</button>
+                        <button class="game-button" style="background: linear-gradient(45deg, #4ecdc4, #7dd3c0);" onclick="handlePress(2)">2</button>
+                        <button class="game-button" style="background: linear-gradient(45deg, #45b7d1, #6fc8e0);" onclick="handlePress(3)">3</button>
+                        <button class="game-button" style="background: linear-gradient(45deg, #f9ca24, #fdda5e);" onclick="handlePress(4)">4</button>
                     </div>
                     <p id="user-sequence">Sua sequência: </p>
+                    <button class="button secondary" onclick="resetGame()">Reiniciar Jogo</button>
                 </div>
 
                 <!-- Gallery -->
@@ -113,12 +119,12 @@
 
                 <!-- Settings -->
                 <div id="settings" class="tab-content">
-                    <h3>Perfil do aluno</h3>
+                    <h3><i class="fas fa-user"></i> Perfil do aluno</h3>
                     <p>Nome: Aluno Exemplo</p>
                     <p>E-mail: aluno@escola.com</p>
                     <p>Turma: 9ºA (exemplo)</p>
-                    <h4>Aparência</h4>
-                    <p>Modo Escuro (opcional)</p>
+                    <h4><i class="fas fa-palette"></i> Aparência</h4>
+                    <label><input type="checkbox" id="dark-mode"> Modo Escuro</label>
                 </div>
             </div>
         </div>
@@ -128,8 +134,8 @@
             <div class="modal-content">
                 <h3 id="activity-title"></h3>
                 <p id="activity-details"></p>
-                <button class="button" onclick="markDone()">Marcar como concluída</button>
-                <button onclick="closeModal()">Fechar</button>
+                <button class="button primary" onclick="markDone()">Marcar como concluída</button>
+                <button class="button secondary" onclick="closeModal()">Fechar</button>
             </div>
         </div>
 
@@ -138,10 +144,10 @@
                 <h3 id="chat-teacher"></h3>
                 <div id="chat-messages" class="chat-messages"></div>
                 <div class="chat-input-row">
-                    <input type="text" id="chat-input" placeholder="Escreva uma mensagem" class="chat-input">
+                    <input type="text" id="chat-input" placeholder="Escreva uma mensagem..." class="chat-input" aria-label="Mensagem">
                     <button class="send-button" onclick="sendMessage()">Enviar</button>
                 </div>
-                <button onclick="closeModal()">Fechar</button>
+                <button class="button secondary" onclick="closeModal()">Fechar</button>
             </div>
         </div>
     </div>
