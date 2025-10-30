@@ -1,68 +1,169 @@
-// Mock data
-const MOCK_USER = { name: 'Aluno Exemplo', email: 'aluno@escola.com' };
-const MOCK_ACTIVITIES = [
-    { id: 'a1', title: 'Exercício 1 - Frações', subject: 'Matemática', due: '2025-11-02', status: 'Pendente', sequence: 1 },
-    { id: 'a2', title: 'Redação: Meu Lugar Favorito', subject: 'Português', due: '2025-11-05', status: 'Em andamento', sequence: 1 },
-    { id: 'a3', title: 'Experimento - Plantas', subject: 'Ciências', due: '2025-11-07', status: 'Pendente', sequence: 2 },
-    { id: 'a4', title: 'Lista de Álgebra', subject: 'Matemática', due: '2025-10-30', status: 'Concluída', sequence: 2 },
-];
-const MOCK_TEACHERS = [
-    { id: 't1', name: 'Prof. Ana', subject: 'Matemática' },
-    { id: 't2', name: 'Prof. Bruno', subject: 'Português' },
-];
-const MOCK_GALLERY = [
-    { id: 'g1', title: 'Meu Projeto de Matemática', image: 'https://placehold.co/200x150', date: '2025-10-25' },
-    { id: 'g2', title: 'Redação Final', image: 'https://placehold.co/200x150', date: '2025-10-20' },
-];
-const MOCK_HISTORY = [
-    { id: 'h1', type: 'Atividade', title: 'Exercício 1 - Frações', date: '2025-10-30', status: 'Concluída' },
-    { id: 'h2', type: 'Mensagem', title: 'Chat com Prof. Ana', date: '2025-10-28', status: 'Enviada' },
-];
-const MOCK_TIPS = [
-    { id: 'mt1', title: 'Respiração Profunda', description: 'Pratique respiração 4-7-8 para relaxar.' },
-    { id: 'mt2', title: 'Diário de Gratidão', description: 'Anote 3 coisas pelas quais você é grato todos os dias.' },
-];
+import React, { useState } from 'react';
 
-// Global variables
-let currentUser = null;
-let currentActivities = [...MOCK_ACTIVITIES];
-let currentSequence = [1, 2, 3, 4];
-let userSequence = [];
-let level = 1;
-let gameOver = false;
-let currentTeacher = null;
-let messages = [];
+const PortalEduConnect = () => {
+  const [user, setUser] = useState(null);
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
 
-// DOM elements
-const loginScreen = document.getElementById('login');
-const mainScreen = document.getElementById('main');
-const tabs = document.querySelectorAll('.tab');
-const tabContents = document.querySelectorAll('.tab-content');
-const activityModal = document.getElementById('activity-modal');
-const chatModal = document.getElementById('chat-modal');
-
-// Login
-document.getElementById('loginBtn').addEventListener('click', () => {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    if (email && password) {
-        currentUser = MOCK_USER;
-        loginScreen.classList.remove('active');
-        mainScreen.classList.add('active');
-        loadHome();
-    } else {
-        alert('E-mail e senha são obrigatórios.');
+  const fakeLogin = () => {
+    // Simular login validado
+    if(email && senha) {
+      setUser({
+        nome: 'João da Silva',
+        serie: '9º Ano',
+        turma: 'Turma A',
+        email,
+        telefone: '(11) 98765-4321',
+        nascimento: '15/09/2006',
+        aulasHoje: [
+          { horario: '07:30', materia: 'Matemática', professor: 'Prof. Maria Silva' },
+          { horario: '08:30', materia: 'Português', professor: 'Prof. João Costa' },
+          { horario: '09:30', materia: 'História', professor: 'Prof. Ana Santos' },
+          { horario: '10:45', materia: 'Educação Física', professor: 'Prof. Carlos Lima' },
+        ],
+        atividadesConcluidas: 12,
+        sequenciaDias: 7,
+        professores: [
+          { nome: 'Maria Silva', disciplina: 'Matemática' },
+          { nome: 'João Costa', disciplina: 'Português' },
+          { nome: 'Ana Santos', disciplina: 'História' },
+          { nome: 'Carlos Lima', disciplina: 'Educação Física' },
+        ],
+        jogosEducativos: [
+          { titulo: 'Quiz de Matemática', sequencia: 5 },
+          { titulo: 'Desafio de História', sequencia: 3 },
+          { titulo: 'Quiz de Ciências', sequencia: 7 },
+        ],
+      });
     }
-});
+  };
 
-// Tab navigation
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tabContents.forEach(c => c.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.tab).classList.add('active');
-        if (tab.dataset.tab === 'home') loadHome();
-        if (tab.dataset.tab === 'activities') loadActivities();
-        if (tab.dataset.tab === 'chats') loadChats();
-        if (tab.dataset.tab === 'pending') loadPending();
+  if(!user) {
+    // Tela de Login
+    return (
+      <div style={{ padding: 20, fontFamily: 'Arial, sans-serif', background: '#677eff', height: '100vh', color: '#fff' }}>
+        <div style={{ maxWidth: 400, margin: 'auto', background: 'white', borderRadius: 20, padding: 20, color: '#333' }}>
+          <div style={{ textAlign: 'center', marginBottom: 20 }}>
+            <div style={{ marginBottom: 10, fontWeight: 'bold', fontSize: 24 }}>EduConnect</div>
+            <div style={{ fontSize: 14, marginBottom: 10 }}>Portal do Aluno</div>
+            <div style={{ fontSize: 12, color: '#666' }}>
+              Bem-vindo! Faça login para acessar suas atividades e recursos escolares.
+            </div>
+          </div>
+
+          <h2 style={{ textAlign: 'center' }}>Entrar</h2>
+          <p style={{ textAlign: 'center', fontSize: 14, color: '#888' }}>Acesse sua conta estudantil</p>
+
+          <input 
+            type="email" 
+            placeholder="seu.email@escola.edu.br" 
+            style={{ width: '100%', padding: 10, marginBottom: 10, borderRadius: 10, border: '1px solid #ddd' }} 
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+          <input 
+            type="password" 
+            placeholder="Sua senha"
+            style={{ width: '100%', padding: 10, marginBottom: 20, borderRadius: 10, border: '1px solid #ddd' }}
+            value={senha}
+            onChange={e => setSenha(e.target.value)}
+          />
+
+          <button 
+            style={{ 
+              width: '100%', 
+              padding: 12, 
+              background: 'linear-gradient(90deg, #4568dc, #b06ab3)', 
+              color: 'white', 
+              fontWeight: 'bold', 
+              borderRadius: 10, 
+              border: 'none',
+              cursor: 'pointer'
+            }}
+            onClick={fakeLogin}
+          >
+            🎓 Acessar Portal 🚀
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Tela do Painel do Aluno
+  return (
+    <div style={{ fontFamily: 'Arial, sans-serif', maxWidth: 600, margin: 'auto', padding: 20 }}>
+      <header style={{ background: 'linear-gradient(90deg, #5a58fc, #a56eff)', color: 'white', borderRadius: 12, padding: 20, marginBottom: 20 }}>
+        <h2>{user.nome}</h2>
+        <p>{user.serie} - {user.turma}</p>
+      </header>
+
+      <section style={{ background: '#f9f9f9', borderRadius: 12, padding: 20, marginBottom: 20 }}>
+        <h3>Aulas de Hoje</h3>
+        {user.aulasHoje.map((aula, i) => (
+          <div 
+            key={i} 
+            style={{ background: '#eee', borderRadius: 12, padding: 10, marginTop: 10 }}
+          >
+            <p><strong>Horário</strong> {aula.horario}</p>
+            <p><strong>{aula.materia}</strong></p>
+            <p style={{ color: '#666' }}>Prof. {aula.professor}</p>
+          </div>
+        ))}
+      </section>
+
+      <section style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
+        <div style={{
+          flex: 1,
+          background: '#4CAF50',
+          color: 'white',
+          borderRadius: 12,
+          marginRight: 10,
+          padding: 20,
+          textAlign: 'center',
+        }}>
+          <h2>{user.atividadesConcluidas}</h2>
+          Atividades Concluídas
+        </div>
+        <div style={{
+          flex: 1,
+          background: '#FF9800',
+          color: 'white',
+          borderRadius: 12,
+          padding: 20,
+          textAlign: 'center',
+        }}>
+          <h2>{user.sequenciaDias}</h2>
+          Dias de Sequência 🔥
+        </div>
+      </section>
+
+      <section style={{ background: '#f9f9f9', borderRadius: 12, padding: 20, marginBottom: 20 }}>
+        <h3>Meus Professores</h3>
+        {user.professores.map((prof, i) => (
+          <div key={i} style={{ background: '#eee', borderRadius: 12, padding: 10, marginTop: 10, display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+            <div>
+              <p style={{ fontWeight: 'bold' }}>Prof. {prof.nome}</p>
+              <p style={{ color: '#666' }}>{prof.disciplina}</p>
+            </div>
+            <button style={{ padding: '6px 12px', borderRadius: 10, border: 'none', background: '#ccc', cursor: 'pointer' }}>Mensagem</button>
+          </div>
+        ))}
+      </section>
+
+      <section style={{ background: '#f9f9f9', borderRadius: 12, padding: 20, marginBottom: 20 }}>
+        <h3>Minijogos Educativos</h3>
+        {user.jogosEducativos.map((jogo, i) => (
+          <div key={i} style={{ background: '#baaaff', borderRadius: 12, padding: 15, marginTop: 10, color: 'white', display: 'flex', justifyContent: 'space-between', alignItems:'center' }}>
+            <div>
+              <h4>{jogo.titulo}</h4>
+              <p>Sequência: {jogo.sequencia} dias 🔥</p>
+            </div>
+            <button style={{background:'#7e57c2', border:'none', color:'white', padding:'8px 16px', borderRadius: 12, cursor: 'pointer'}}>Jogar</button>
+          </div>
+        ))}
+      </section>
+    </div>
+  );
+};
+
+export default PortalEduConnect;
